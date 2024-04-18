@@ -1,0 +1,41 @@
+package br.com.Salazar.rest.tests.refatoracao.suite;
+
+import br.com.Salazar.rest.core.BaseTest;
+import br.com.Salazar.rest.tests.refatoracao.AuthTest;
+import br.com.Salazar.rest.tests.refatoracao.ContasTest;
+import br.com.Salazar.rest.tests.refatoracao.MovimentacaoTest;
+import br.com.Salazar.rest.tests.refatoracao.SaldoTest;
+import io.restassured.RestAssured;
+import org.junit.BeforeClass;
+import org.junit.runner.RunWith;
+import java.util.HashMap;
+import java.util.Map;
+import static io.restassured.RestAssured.given;
+
+@RunWith(org.junit.runners.Suite.class)
+@org.junit.runners.Suite.SuiteClasses({ContasTest.class,
+                                       MovimentacaoTest.class,
+                                       SaldoTest.class,
+                                       AuthTest.class})
+
+public class Suite extends BaseTest {
+
+    @BeforeClass
+    public static void login() {
+        Map<String, String> login = new HashMap<>();
+        login.put("email", EMAIL);
+        login.put("senha", SENHA);
+
+        String TOKEN = given()
+                .body(login)
+                .when()
+                .post("/signin")
+                .then()
+                .statusCode(200)
+                .extract().path("token");
+        RestAssured.requestSpecification.header("Authorization", "JWT " + TOKEN);
+
+        RestAssured.get("/reset").then().statusCode(200);
+    }
+
+}
