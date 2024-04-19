@@ -18,4 +18,5 @@ public class SaldoTest extends BaseTest {
                 .statusCode(200)
                 .body("find{it.conta_id == "+CONTA_ID+"}.saldo", is("534.00"));
     }
+
 }

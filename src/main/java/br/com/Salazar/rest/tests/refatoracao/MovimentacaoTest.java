@@ -22,6 +22,7 @@ public class MovimentacaoTest extends BaseTest {
                 .extract().path("id");
     }
 
+
     @Test
     public void deveValidarCamposObrigatoriosMovimentacao() {
         given()

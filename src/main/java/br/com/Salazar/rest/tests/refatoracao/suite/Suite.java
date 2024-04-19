@@ -37,5 +37,4 @@ public class Suite extends BaseTest {
 
         RestAssured.get("/reset").then().statusCode(200);
     }
-
 }

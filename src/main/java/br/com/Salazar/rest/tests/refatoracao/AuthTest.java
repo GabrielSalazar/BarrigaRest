@@ -19,4 +19,5 @@ public class AuthTest extends BaseTest {
                 .then()
                 .statusCode(401);
     }
+
 }
